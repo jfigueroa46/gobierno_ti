@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXA IT Consulting — Gobierno y Gestión de TI</title>
+<meta name="description" content="Consultoría especializada en gobierno, gestión y optimización de servicios de tecnología mediante COBIT 2019 e ITIL 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.462.0/dist/umd/lucide.min.js"></script>
+<style>
+  :root{
+    --navy-950:#060a16;
+    --navy-900:#0a1128;
+    --navy-850:#0d1530;
+    --navy-800:#121b3f;
+    --navy-700:#1a2650;
+    --line:#22304f;
+    --blue:#3B7BFF;
+    --blue-soft:#8FB3FF;
+    --purple:#8B6BFF;
+    --cyan:#2FD9C6;
+    --white:#F6F8FC;
+    --gray-300:#B7C1D9;
+    --gray-500:#8390AC;
+    --radius-sm:10px;
+    --radius-md:16px;
+    --radius-lg:22px;
+    --font-display:'Sora', 'Segoe UI', sans-serif;
+    --font-body:'Inter', 'Segoe UI', sans-serif;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    background:var(--navy-950);
+    color:var(--white);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em;color:var(--white);}
+  section{position:relative;}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px;}
+
+  /* ---------- Background texture ---------- */
+  .grid-glow{
+    position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 18% 10%, rgba(59,123,255,0.16), transparent 42%),
+      radial-gradient(circle at 85% 25%, rgba(139,107,255,0.13), transparent 45%);
+    pointer-events:none;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(6,10,22,0.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.scrolled{border-bottom-color:var(--line);background:rgba(6,10,22,0.94);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-0.01em;}
+  .brand .mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(135deg, var(--blue), var(--purple));
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.95rem;font-weight:800;color:#fff;
+  }
+  .brand small{display:block;font-family:var(--font-body);font-weight:500;font-size:0.62rem;color:var(--gray-500);letter-spacing:0.04em;}
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a{font-size:0.92rem;color:var(--gray-300);transition:color .2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;border-radius:8px;}
+  .burger:hover{background:var(--navy-800);}
+
+  /* ---------- Language toggle ---------- */
+  .lang-toggle{
+    display:flex;align-items:center;
+    border:1px solid var(--line);border-radius:100px;
+    padding:3px;background:var(--navy-850);
+    position:relative;
+  }
+  .lang-toggle button{
+    position:relative;z-index:1;
+    padding:6px 13px;border-radius:100px;
+    font-size:0.78rem;font-weight:600;color:var(--gray-500);
+    transition:color .25s ease;
+    letter-spacing:0.01em;
+  }
+  .lang-toggle button.active{color:var(--navy-950);}
+  .lang-toggle .lang-thumb{
+    position:absolute;top:3px;left:3px;
+    width:calc(50% - 3px);height:calc(100% - 6px);
+    border-radius:100px;
+    background:linear-gradient(135deg, var(--blue-soft), var(--cyan));
+    transition:transform .25s cubic-bezier(.2,.7,.2,1);
+  }
+  .lang-toggle[data-lang="en"] .lang-thumb{transform:translateX(100%);}
+  .mobile-menu .lang-toggle{margin-top:6px;width:fit-content;}
+  .mobile-menu .lang-toggle button{padding:7px 16px;font-size:0.85rem;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 24px;border-radius:10px;font-size:0.92rem;font-weight:600;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--blue), #2f5fe0);
+    color:#fff;
+    box-shadow:0 8px 24px -8px rgba(59,123,255,0.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(59,123,255,0.7);}
+  .btn-ghost{
+    background:transparent;border:1px solid var(--line);color:var(--white);
+  }
+  .btn-ghost:hover{border-color:var(--blue-soft);background:var(--navy-800);}
+  .btn-sm{padding:10px 18px;font-size:0.85rem;}
+  .btn:active{transform:translateY(0);}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:168px 0 100px;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .eyebrow-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:100px;border:1px solid var(--line);
+    font-size:0.8rem;color:var(--gray-300);margin-bottom:22px;
+    background:var(--navy-850);
+  }
+  .eyebrow-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);}
+  .hero h1{font-size:clamp(2.3rem, 4.4vw, 3.6rem);line-height:1.08;margin-bottom:22px;}
+  .hero p.lead{font-size:1.1rem;color:var(--gray-300);max-width:540px;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap;}
+  .hero-meta div{font-size:0.82rem;color:var(--gray-500);}
+  .hero-meta strong{display:block;color:var(--white);font-family:var(--font-display);font-size:1.3rem;margin-bottom:2px;}
+
+  /* Hero visual: governance -> frameworks -> results flow */
+  .flow-card{
+    background:linear-gradient(180deg, var(--navy-850), var(--navy-900));
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:30px 26px;
+    position:relative;
+  }
+  .flow-node{
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    border:1px solid var(--line);
+    background:var(--navy-800);
+    position:relative;
+  }
+  .flow-node.business{
+    text-align:center;
+    background:linear-gradient(135deg, rgba(59,123,255,0.14), rgba(139,107,255,0.1));
+    border-color:rgba(139,151,255,0.35);
+  }
+  .flow-node.business .flabel{font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--white);}
+  .flow-arrow{display:flex;justify-content:center;padding:8px 0;color:var(--gray-500);}
+  .flow-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .flow-node.cobit{border-color:rgba(139,107,255,0.4);}
+  .flow-node.itil{border-color:rgba(47,217,198,0.4);}
+  .flow-node .ftitle{font-size:0.8rem;font-weight:700;font-family:var(--font-display);margin-bottom:6px;}
+  .flow-node.cobit .ftitle{color:var(--purple);}
+  .flow-node.itil .ftitle{color:var(--cyan);}
+  .flow-node .ftags{font-size:0.72rem;color:var(--gray-500);line-height:1.5;}
+  .flow-node.results{
+    text-align:center;
+    background:linear-gradient(135deg, rgba(47,217,198,0.14), rgba(59,123,255,0.1));
+    border-color:rgba(47,217,198,0.35);
+  }
+  .flow-node.results .ftags{color:var(--gray-300);}
+
+  /* ---------- Section shell ---------- */
+  .section{padding:112px 0;}
+  .section-head{max-width:620px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(1.7rem, 3vw, 2.4rem);line-height:1.18;margin-bottom:16px;}
+  .section-head p{color:var(--gray-300);font-size:1.02rem;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .divider{height:1px;background:var(--line);width:100%;}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- Problema ---------- */
+  .problem-wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+  .problem-list{display:grid;gap:14px;}
+  .problem-item{
+    display:flex;gap:14px;align-items:flex-start;
+    padding:16px 18px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--navy-850);
+  }
+  .problem-item .icn{flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:var(--navy-800);display:flex;align-items:center;justify-content:center;color:var(--blue-soft);}
+  .problem-item p{font-size:0.92rem;color:var(--gray-300);}
+  .problem-close{
+    align-self:stretch;
+    border-radius:var(--radius-lg);
+    background:linear-gradient(160deg, var(--navy-850), var(--navy-900));
+    border:1px solid var(--line);
+    padding:34px 30px;
+    display:flex;flex-direction:column;justify-content:center;gap:16px;
+  }
+  .problem-close .qmark{color:var(--blue-soft);}
+  .problem-close p{font-family:var(--font-display);font-size:1.35rem;line-height:1.4;color:var(--white);}
+  .problem-close span{font-size:0.85rem;color:var(--gray-500);}
+
+  /* ---------- Solución cards ---------- */
+  .solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .sol-card{
+    border-radius:var(--radius-lg);
+    padding:30px 26px;
+    border:1px solid var(--line);
+    background:var(--navy-850);
+    display:flex;flex-direction:column;gap:16px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .sol-card:hover{transform:translateY(-4px);}
+  .sol-card .tag{font-size:0.74rem;font-weight:600;color:var(--gray-500);}
+  .sol-card h3{font-size:1.28rem;}
+  .sol-card ul{display:grid;gap:9px;margin-top:4px;}
+  .sol-card li{display:flex;gap:9px;align-items:flex-start;font-size:0.88rem;color:var(--gray-300);}
+  .sol-card li svg{flex:0 0 auto;margin-top:3px;}
+  .sol-card.itil{border-top:3px solid var(--cyan);}
+  .sol-card.itil .tag{color:var(--cyan);}
+  .sol-card.cobit{border-top:3px solid var(--purple);}
+  .sol-card.cobit .tag{color:var(--purple);}
+  .sol-card.combo{
+    border-top:3px solid var(--blue);
+    background:linear-gradient(165deg, rgba(59,123,255,0.1), rgba(139,107,255,0.06));
+    position:relative;
+  }
+  .sol-card.combo .tag{color:var(--blue-soft);}
+  .sol-card.combo .highlight{
+    margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+    font-size:0.9rem;font-style:normal;color:var(--white);font-family:var(--font-display);font-weight:600;line-height:1.4;
+  }
+
+  /* ---------- Comparativa ---------- */
+  .compare-wrap{
+    display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;
+    border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line);
+  }
+  .compare-col{padding:34px 30px;background:var(--navy-850);}
+  .compare-col.cobit{border-right:1px solid var(--line);}
+  .compare-col h3{font-size:1.1rem;margin-bottom:4px;}
+  .compare-col.cobit h3{color:var(--purple);}
+  .compare-col.itil h3{color:var(--cyan);}
+  .compare-col .sub{font-size:0.82rem;color:var(--gray-500);margin-bottom:20px;}
+  .compare-col ul{display:grid;gap:11px;}
+  .compare-col li{font-size:0.9rem;color:var(--gray-300);display:flex;gap:10px;align-items:center;}
+  .compare-col li::before{content:'';width:5px;height:5px;border-radius:50%;flex:0 0 auto;}
+  .compare-col.cobit li::before{background:var(--purple);}
+  .compare-col.itil li::before{background:var(--cyan);}
+  .compare-mid{
+    display:flex;align-items:center;justify-content:center;
+    background:var(--navy-900);padding:0 22px;
+    font-family:var(--font-display);font-weight:700;font-size:0.78rem;color:var(--gray-500);
+    writing-mode:vertical-rl;text-orientation:mixed;
+  }
+  .compare-note{text-align:center;margin-top:26px;font-family:var(--font-display);font-size:1.1rem;color:var(--white);}
+
+  /* ---------- Servicios ---------- */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .service-card{
+    padding:28px 24px;border-radius:var(--radius-md);border:1px solid var(--line);background:var(--navy-850);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .service-card:hover{border-color:var(--blue-soft);transform:translateY(-3px);}
+  .service-num{font-family:var(--font-display);font-size:0.8rem;color:var(--gray-500);margin-bottom:14px;}
+  .service-card h3{font-size:1.08rem;margin-bottom:10px;}
+  .service-card p{font-size:0.88rem;color:var(--gray-300);}
+  .service-card.wide{grid-column:span 1;}
+
+  /* ---------- Beneficios ---------- */
+  .benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .benefit-card{padding:26px 22px;border-radius:var(--radius-md);border:1px solid var(--line);background:var(--navy-850);}
+  .benefit-icn{width:42px;height:42px;border-radius:10px;background:var(--navy-800);display:flex;align-items:center;justify-content:center;color:var(--blue-soft);margin-bottom:16px;}
+  .benefit-card h3{font-size:1.02rem;margin-bottom:8px;}
+  .benefit-card p{font-size:0.86rem;color:var(--gray-300);}
+
+  /* ---------- Cómo trabajamos ---------- */
+  .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;}
+  .timeline::before{
+    content:'';position:absolute;top:19px;left:0;right:0;height:1px;background:var(--line);
+  }
+  .tl-step{position:relative;padding:0 12px;text-align:left;}
+  .tl-dot{
+    width:38px;height:38px;border-radius:10px;background:var(--navy-800);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:0.82rem;
+    margin-bottom:18px;position:relative;z-index:2;color:var(--blue-soft);
+  }
+  .tl-step h4{font-size:0.95rem;margin-bottom:6px;}
+  .tl-step p{font-size:0.8rem;color:var(--gray-500);}
+  .flow-strip{
+    margin-top:44px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;
+    font-family:var(--font-display);font-size:0.78rem;color:var(--gray-500);letter-spacing:0.02em;
+  }
+  .flow-strip .fseg{color:var(--gray-300);}
+  .flow-strip svg{color:var(--line);}
+
+  /* ---------- Por qué Nexa ---------- */
+  .why-wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px;align-items:start;}
+  .why-text p{color:var(--gray-300);font-size:1.02rem;max-width:460px;}
+  .pillars{display:grid;gap:18px;}
+  .pillar{display:flex;gap:18px;padding:22px 0;border-top:1px solid var(--line);}
+  .pillar:first-child{border-top:none;padding-top:0;}
+  .pillar .pnum{font-family:var(--font-display);font-weight:700;color:var(--gray-500);font-size:0.95rem;flex:0 0 34px;}
+  .pillar h4{font-size:1.02rem;margin-bottom:6px;}
+  .pillar p{font-size:0.88rem;color:var(--gray-300);}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;display:flex;align-items:center;justify-content:space-between;
+    padding:20px 4px;text-align:left;font-family:var(--font-display);font-weight:600;font-size:0.98rem;color:var(--white);
+  }
+  .faq-q svg{transition:transform .25s ease;flex:0 0 auto;color:var(--gray-500);}
+  .faq-item.open .faq-q svg{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a-inner{padding:0 4px 20px;font-size:0.9rem;color:var(--gray-300);max-width:640px;}
+
+  /* ---------- CTA final ---------- */
+  .cta-final{
+    border-radius:var(--radius-lg);
+    padding:64px 50px;
+    background:radial-gradient(circle at 20% 20%, rgba(59,123,255,0.22), transparent 55%),
+               radial-gradient(circle at 85% 80%, rgba(139,107,255,0.2), transparent 55%),
+               var(--navy-850);
+    border:1px solid var(--line);
+    text-align:center;
+  }
+  .cta-final h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:16px;max-width:640px;margin-left:auto;margin-right:auto;}
+  .cta-final p{color:var(--gray-300);max-width:560px;margin:0 auto 32px;font-size:1.02rem;}
+  .cta-final .hero-actions{justify-content:center;margin-bottom:0;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:64px 0 32px;border-top:1px solid var(--line);}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+  .footer-brand p{color:var(--gray-500);font-size:0.88rem;margin-top:14px;max-width:280px;}
+  .footer-col h5{font-size:0.82rem;color:var(--gray-500);margin-bottom:16px;font-weight:600;}
+  .footer-col ul{display:grid;gap:10px;}
+  .footer-col a{font-size:0.88rem;color:var(--gray-300);transition:color .2s;}
+  .footer-col a:hover{color:var(--white);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:28px;border-top:1px solid var(--line);}
+  .footer-bottom span{font-size:0.8rem;color:var(--gray-500);}
+  .academic-tag{font-size:0.76rem;color:var(--gray-500);padding:6px 12px;border:1px dashed var(--line);border-radius:100px;}
+
+  /* ---------- Modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(6,10,22,0.72);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;padding:20px;z-index:200;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:var(--navy-900);border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:38px 34px;max-width:440px;width:100%;
+    transform:translateY(12px) scale(.98);transition:transform .25s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0) scale(1);}
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+  .modal-head h3{font-size:1.3rem;}
+  .modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--gray-500);}
+  .modal-close:hover{background:var(--navy-800);color:var(--white);}
+  .modal p.sub{color:var(--gray-500);font-size:0.88rem;margin-bottom:22px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:0.82rem;color:var(--gray-300);margin-bottom:7px;}
+  .field input,.field select,.field textarea{
+    width:100%;padding:11px 13px;border-radius:9px;border:1px solid var(--line);
+    background:var(--navy-850);color:var(--white);font-size:0.9rem;font-family:inherit;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue-soft);}
+  .field textarea{resize:vertical;min-height:80px;}
+  .modal-success{display:none;text-align:center;padding:16px 0 4px;}
+  .modal-success.show{display:block;}
+  .modal-success .icn{width:52px;height:52px;border-radius:50%;background:rgba(47,217,198,0.14);display:flex;align-items:center;justify-content:center;color:var(--cyan);margin:0 auto 16px;}
+  .modal-success h4{font-size:1.1rem;margin-bottom:8px;}
+  .modal-success p{color:var(--gray-500);font-size:0.88rem;}
+  .modal-form.hide{display:none;}
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding:140px 0 70px;}
+    .problem-wrap{grid-template-columns:1fr;}
+    .solution-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .benefits-grid{grid-template-columns:1fr 1fr;}
+    .why-wrap{grid-template-columns:1fr;gap:36px;}
+    .footer-grid{grid-template-columns:1fr;gap:32px;}
+    .timeline{grid-template-columns:1fr 1fr 1fr;gap:28px 0;}
+    .timeline::before{display:none;}
+    .compare-wrap{grid-template-columns:1fr;}
+    .compare-mid{writing-mode:horizontal-tb;padding:14px 0;}
+    .compare-col.cobit{border-right:none;border-bottom:1px solid var(--line);}
+  }
+  @media (max-width: 720px){
+    .nav-links{display:none;}
+    .nav-cta .btn-ghost{display:none;}
+    .burger{display:flex;}
+    .services-grid{grid-template-columns:1fr;}
+    .benefits-grid{grid-template-columns:1fr;}
+    .timeline{grid-template-columns:1fr 1fr;}
+    .wrap{padding:0 20px;}
+    .section{padding:76px 0;}
+    .cta-final{padding:44px 26px;}
+    .flow-split{grid-template-columns:1fr;}
+  }
+
+  /* Mobile drawer */
+  .mobile-menu{
+    position:fixed;top:76px;left:0;right:0;bottom:0;z-index:99;
+    background:var(--navy-950);
+    transform:translateX(100%);transition:transform .3s ease;
+    padding:32px 28px;overflow-y:auto;
+  }
+  .mobile-menu.open{transform:translateX(0);}
+  .mobile-menu a{display:block;padding:16px 0;font-size:1.1rem;font-family:var(--font-display);font-weight:600;border-bottom:1px solid var(--line);}
+  .mobile-menu .hero-actions{margin-top:28px;flex-direction:column;}
+  .mobile-menu .btn{width:100%;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <span class="mark">N</span>
+      <span>NEXA IT<br><small>CONSULTING</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#solucion" data-i18n="nav.services">Servicios</a>
+      <a href="#comparativa" data-i18n="nav.compare">COBIT vs ITIL</a>
+      <a href="#como-trabajamos" data-i18n="nav.method">Metodología</a>
+      <a href="#por-que-nexa" data-i18n="nav.about">Nosotros</a>
+      <a href="#faq" data-i18n="nav.faq">Preguntas</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="lang-toggle" id="langToggle" data-lang="es" role="group" aria-label="Cambiar idioma / Switch language">
+        <div class="lang-thumb" aria-hidden="true"></div>
+        <button type="button" class="active" data-lang-btn="es">ES</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+      <a href="#contacto" class="btn btn-ghost btn-sm" data-open-modal data-i18n="nav.talk">Hablar con un consultor</a>
+      <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#solucion" data-close-menu data-i18n="nav.services">Servicios</a>
+  <a href="#comparativa" data-close-menu data-i18n="nav.compare">COBIT vs ITIL</a>
+  <a href="#como-trabajamos" data-close-menu data-i18n="nav.method">Metodología</a>
+  <a href="#por-que-nexa" data-close-menu data-i18n="nav.about">Nosotros</a>
+  <a href="#faq" data-close-menu data-i18n="nav.faq">Preguntas</a>
+  <div class="lang-toggle" id="langToggleMobile" data-lang="es" role="group" aria-label="Cambiar idioma / Switch language">
+    <div class="lang-thumb" aria-hidden="true"></div>
+    <button type="button" class="active" data-lang-btn="es">ES</button>
+    <button type="button" data-lang-btn="en">EN</button>
+  </div>
+  <div class="hero-actions">
+    <a href="#contacto" class="btn btn-primary" data-open-modal data-close-menu data-i18n="nav.diagnose">Solicitar diagnóstico</a>
+    <a href="#contacto" class="btn btn-ghost" data-open-modal data-close-menu data-i18n="nav.talk">Hablar con un consultor</a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="grid-glow"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-tag reveal in"><span class="dot"></span><span data-i18n="hero.eyebrow">Gobierno y gestión de TI</span></div>
+        <h1 class="reveal in" data-i18n="hero.title">Transformamos la tecnología en valor para su negocio</h1>
+        <p class="lead reveal in" data-i18n="hero.lead">Ayudamos a las organizaciones a fortalecer su gobierno de TI, optimizar sus servicios tecnológicos y reducir riesgos mediante la implementación estratégica de COBIT 2019 e ITIL 4.</p>
+        <div class="hero-actions reveal in">
+          <a href="#contacto" class="btn btn-primary" data-open-modal data-i18n="hero.cta1">Solicitar diagnóstico</a>
+          <a href="#solucion" class="btn btn-ghost" data-i18n="hero.cta2">Conocer nuestros servicios</a>
+        </div>
+        <div class="hero-meta reveal in">
+          <div><strong>2</strong><span data-i18n="hero.meta1">marcos integrados</span></div>
+          <div><strong>6</strong><span data-i18n="hero.meta2">etapas de acompañamiento</span></div>
+          <div><strong>360°</strong><span data-i18n="hero.meta3">gobierno + gestión</span></div>
+        </div>
+      </div>
+
+      <div class="flow-card reveal in">
+        <div class="flow-node business">
+          <div class="flabel" data-i18n="hero.flow.business">NEGOCIO</div>
+        </div>
+        <div class="flow-arrow"><i data-lucide="arrow-down"></i></div>
+        <div class="flow-split">
+          <div class="flow-node cobit">
+            <div class="ftitle">COBIT 2019</div>
+            <div class="ftags" data-i18n="hero.flow.cobit">Gobierno · Riesgos · Objetivos · Control</div>
+          </div>
+          <div class="flow-node itil">
+            <div class="ftitle">ITIL 4</div>
+            <div class="ftags" data-i18n="hero.flow.itil">Servicios · Procesos · Valor · Mejora</div>
+          </div>
+        </div>
+        <div class="flow-arrow"><i data-lucide="arrow-down"></i></div>
+        <div class="flow-node results">
+          <div class="flabel" style="font-size:0.9rem;" data-i18n="hero.flow.results">RESULTADOS</div>
+          <div class="ftags" style="margin-top:6px;" data-i18n="hero.flow.resultsTags">Eficiencia · Control · Valor · Satisfacción</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- PROBLEMA -->
+  <section class="section" id="problema">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="problem.title">¿Su tecnología está realmente alineada con su negocio?</h2>
+        <p data-i18n="problem.lead">Muchas organizaciones invierten en tecnología sin obtener el retorno esperado. Estos son los síntomas más comunes que observamos antes de empezar a trabajar con un cliente.</p>
+      </div>
+      <div class="problem-wrap">
+        <div class="problem-list">
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="workflow"></i></span><p data-i18n="problem.item1">Procesos de TI poco definidos o documentados.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="alert-triangle"></i></span><p data-i18n="problem.item2">Servicios tecnológicos que presentan fallas recurrentes.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="unlink"></i></span><p data-i18n="problem.item3">Falta de alineación entre TI y los objetivos del negocio.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="shield-alert"></i></span><p data-i18n="problem.item4">Riesgos tecnológicos difíciles de identificar y controlar.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="gauge"></i></span><p data-i18n="problem.item5">Falta de indicadores para medir el desempeño de TI.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="compass"></i></span><p data-i18n="problem.item6">Decisiones tecnológicas tomadas sin visión estratégica.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="flame"></i></span><p data-i18n="problem.item7">Equipos de TI enfocados únicamente en apagar incendios.</p></div>
+          <div class="problem-item reveal"><span class="icn"><i data-lucide="refresh-cw-off"></i></span><p data-i18n="problem.item8">Ausencia de una cultura de mejora continua.</p></div>
+        </div>
+        <div class="problem-close reveal">
+          <i data-lucide="quote" class="qmark"></i>
+          <p data-i18n="problem.quote">La tecnología no debería ser solamente un área de soporte. Debe convertirse en un verdadero habilitador del negocio.</p>
+          <span data-i18n="problem.quoteSub">Así es como pensamos cada proyecto en NEXA.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCIÓN -->
+  <section class="section" id="solucion">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="solution.title">Dos marcos. Una estrategia de TI más sólida.</h2>
+        <p data-i18n="solution.lead">Trabajamos con COBIT 2019 e ITIL 4 de forma independiente o combinada, según lo que su organización realmente necesite.</p>
+      </div>
+      <div class="solution-grid">
+        <div class="sol-card itil reveal">
+          <span class="tag">ITIL 4</span>
+          <h3 data-i18n="solution.itil.title">Gestión de servicios de TI</h3>
+          <ul>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li1">Diseñar mejores servicios</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li2">Optimizar procesos operativos</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li3">Mejorar la experiencia del usuario</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li4">Gestionar incidentes y cambios</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li5">Impulsar la mejora continua</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.itil.li6">Generar mayor valor a través de los servicios</span></li>
+          </ul>
+        </div>
+        <div class="sol-card cobit reveal">
+          <span class="tag">COBIT 2019</span>
+          <h3 data-i18n="solution.cobit.title">Gobierno y control de TI</h3>
+          <ul>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li1">Alinear TI con los objetivos empresariales</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li2">Gestionar riesgos tecnológicos</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li3">Establecer controles efectivos</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li4">Definir objetivos de gobierno y gestión</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li5">Mejorar la toma de decisiones</span></li>
+            <li><i data-lucide="check" width="15" height="15"></i><span data-i18n="solution.cobit.li6">Obtener mayor valor de las inversiones en TI</span></li>
+          </ul>
+        </div>
+        <div class="sol-card combo reveal">
+          <span class="tag">COBIT + ITIL</span>
+          <h3 data-i18n="solution.combo.title">Gobierno + Gestión</h3>
+          <p style="font-size:0.9rem;color:var(--gray-300);" data-i18n="solution.combo.text">COBIT 2019 proporciona una visión de gobierno y dirección, mientras ITIL 4 permite llevar esa estrategia a la gestión y mejora de los servicios de TI.</p>
+          <div class="highlight" data-i18n="solution.combo.highlight">COBIT define hacia dónde dirigir y gobernar. ITIL ayuda a gestionar y mejorar cómo se entregan los servicios.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARATIVA -->
+  <section class="section" id="comparativa">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <h2>COBIT 2019 vs ITIL 4</h2>
+        <p data-i18n="compare.lead">Dos enfoques distintos que resuelven necesidades diferentes dentro de una misma organización.</p>
+      </div>
+      <div class="compare-wrap reveal">
+        <div class="compare-col cobit">
+          <h3>COBIT 2019</h3>
+          <div class="sub" data-i18n="compare.cobitSub">Mayor enfoque en gobierno y gestión empresarial</div>
+          <ul>
+            <li data-i18n="compare.cobit.li1">Gobierno de TI</li>
+            <li data-i18n="compare.cobit.li2">Alineación estratégica</li>
+            <li data-i18n="compare.cobit.li3">Gestión de riesgos</li>
+            <li data-i18n="compare.cobit.li4">Controles internos</li>
+            <li data-i18n="compare.cobit.li5">Objetivos empresariales</li>
+            <li data-i18n="compare.cobit.li6">Desempeño</li>
+            <li data-i18n="compare.cobit.li7">Cumplimiento</li>
+          </ul>
+        </div>
+        <div class="compare-mid" data-i18n="compare.mid">GOBIERNO · GESTIÓN</div>
+        <div class="compare-col itil">
+          <h3>ITIL 4</h3>
+          <div class="sub" data-i18n="compare.itilSub">Mayor enfoque en servicios y operación</div>
+          <ul>
+            <li data-i18n="compare.itil.li1">Gestión de servicios</li>
+            <li data-i18n="compare.itil.li2">Entrega de valor</li>
+            <li data-i18n="compare.itil.li3">Experiencia del cliente</li>
+            <li data-i18n="compare.itil.li4">Procesos y prácticas</li>
+            <li data-i18n="compare.itil.li5">Mejora continua</li>
+            <li data-i18n="compare.itil.li6">Gestión de incidentes</li>
+            <li data-i18n="compare.itil.li7">Gestión de cambios</li>
+          </ul>
+        </div>
+      </div>
+      <p class="compare-note reveal" data-i18n="compare.note">No compiten. Se complementan.</p>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="services.title">¿Qué hacemos por su organización?</h2>
+        <p data-i18n="services.lead">Servicios diseñados para acompañar a su empresa desde el diagnóstico hasta la mejora continua.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-num">01</div>
+          <h3 data-i18n="services.s1.title">Diagnóstico de TI</h3>
+          <p data-i18n="services.s1.text">Evaluamos el estado actual de los procesos, servicios, controles y capacidades de TI para identificar oportunidades de mejora.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">02</div>
+          <h3 data-i18n="services.s2.title">Implementación de ITIL 4</h3>
+          <p data-i18n="services.s2.text">Diseñamos y optimizamos prácticas de gestión de servicios orientadas a mejorar la eficiencia y el valor entregado al cliente.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">03</div>
+          <h3 data-i18n="services.s3.title">Implementación de COBIT 2019</h3>
+          <p data-i18n="services.s3.text">Fortalecemos el gobierno de TI, la gestión de riesgos, los controles y la alineación con los objetivos estratégicos.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">04</div>
+          <h3 data-i18n="services.s4.title">Integración COBIT + ITIL</h3>
+          <p data-i18n="services.s4.text">Integramos gobierno y gestión para construir un modelo de TI coherente con las necesidades reales de la organización.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-num">05</div>
+          <h3 data-i18n="services.s5.title">Capacitación y mejora continua</h3>
+          <p data-i18n="services.s5.text">Acompañamos a los equipos para que los procesos implementados sean sostenibles y evolucionen con las necesidades del negocio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="section" id="beneficios">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="benefits.title">Resultados que generan valor</h2>
+        <p data-i18n="benefits.lead">Estos son los efectos que buscamos generar en cada organización con la que trabajamos.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="target"></i></div>
+          <h3 data-i18n="benefits.b1.title">Mayor alineación</h3>
+          <p data-i18n="benefits.b1.text">TI trabaja en función de los objetivos estratégicos del negocio.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="settings-2"></i></div>
+          <h3 data-i18n="benefits.b2.title">Mayor eficiencia</h3>
+          <p data-i18n="benefits.b2.text">Procesos más organizados y servicios mejor gestionados.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="shield-check"></i></div>
+          <h3 data-i18n="benefits.b3.title">Menor exposición al riesgo</h3>
+          <p data-i18n="benefits.b3.text">Mayor control sobre riesgos y procesos tecnológicos.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="bar-chart-3"></i></div>
+          <h3 data-i18n="benefits.b4.title">Mejores decisiones</h3>
+          <p data-i18n="benefits.b4.text">Información y objetivos que facilitan la toma de decisiones.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="refresh-cw"></i></div>
+          <h3 data-i18n="benefits.b5.title">Mejora continua</h3>
+          <p data-i18n="benefits.b5.text">Los servicios y procesos evolucionan constantemente.</p>
+        </div>
+        <div class="benefit-card reveal">
+          <div class="benefit-icn"><i data-lucide="handshake"></i></div>
+          <h3 data-i18n="benefits.b6.title">Mayor satisfacción</h3>
+          <p data-i18n="benefits.b6.text">Servicios de TI más orientados a las necesidades de usuarios y clientes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJAMOS -->
+  <section class="section" id="como-trabajamos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="method.title">De la situación actual a una TI más estratégica</h2>
+        <p data-i18n="method.lead">Un método claro y ordenado para llevar a su organización del diagnóstico a la mejora continua.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-step reveal"><div class="tl-dot">01</div><h4 data-i18n="method.t1.title">Diagnosticar</h4><p data-i18n="method.t1.text">Conocemos la situación actual de la organización.</p></div>
+        <div class="tl-step reveal"><div class="tl-dot">02</div><h4 data-i18n="method.t2.title">Analizar</h4><p data-i18n="method.t2.text">Identificamos brechas, riesgos y oportunidades.</p></div>
+        <div class="tl-step reveal"><div class="tl-dot">03</div><h4 data-i18n="method.t3.title">Diseñar</h4><p data-i18n="method.t3.text">Definimos el modelo y las prácticas adecuadas.</p></div>
+        <div class="tl-step reveal"><div class="tl-dot">04</div><h4 data-i18n="method.t4.title">Implementar</h4><p data-i18n="method.t4.text">Llevamos las mejoras a los procesos y servicios.</p></div>
+        <div class="tl-step reveal"><div class="tl-dot">05</div><h4 data-i18n="method.t5.title">Medir</h4><p data-i18n="method.t5.text">Evaluamos resultados mediante indicadores.</p></div>
+        <div class="tl-step reveal"><div class="tl-dot">06</div><h4 data-i18n="method.t6.title">Mejorar</h4><p data-i18n="method.t6.text">Ajustamos continuamente para generar mayor valor.</p></div>
+      </div>
+      <div class="flow-strip reveal">
+        <span class="fseg" data-i18n="method.strip1">DIAGNOSTICAR</span><i data-lucide="arrow-right" width="15" height="15"></i>
+        <span class="fseg" data-i18n="method.strip2">ANALIZAR</span><i data-lucide="arrow-right" width="15" height="15"></i>
+        <span class="fseg" data-i18n="method.strip3">DISEÑAR</span><i data-lucide="arrow-right" width="15" height="15"></i>
+        <span class="fseg" data-i18n="method.strip4">IMPLEMENTAR</span><i data-lucide="arrow-right" width="15" height="15"></i>
+        <span class="fseg" data-i18n="method.strip5">MEDIR</span><i data-lucide="arrow-right" width="15" height="15"></i>
+        <span class="fseg" data-i18n="method.strip6">MEJORAR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ NEXA -->
+  <section class="section" id="por-que-nexa">
+    <div class="wrap why-wrap">
+      <div class="why-text reveal">
+        <div class="section-head" style="margin-bottom:20px;">
+          <h2 data-i18n="why.title">No implementamos marcos. Implementamos soluciones.</h2>
+        </div>
+        <p data-i18n="why.text">Cada organización tiene necesidades diferentes. Por eso analizamos primero sus objetivos, procesos y necesidades para determinar qué prácticas de COBIT 2019 e ITIL 4 realmente aportan valor.</p>
+      </div>
+      <div class="pillars reveal">
+        <div class="pillar">
+          <span class="pnum">01</span>
+          <div><h4 data-i18n="why.p1.title">Enfoque estratégico</h4><p data-i18n="why.p1.text">La tecnología se conecta con los objetivos del negocio.</p></div>
+        </div>
+        <div class="pillar">
+          <span class="pnum">02</span>
+          <div><h4 data-i18n="why.p2.title">Implementación práctica</h4><p data-i18n="why.p2.text">Convertimos buenas prácticas en procesos aplicables a la realidad de la organización.</p></div>
+        </div>
+        <div class="pillar">
+          <span class="pnum">03</span>
+          <div><h4 data-i18n="why.p3.title">Acompañamiento</h4><p data-i18n="why.p3.text">No dejamos a la organización después de implementar. Acompañamos la medición y la mejora continua.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 data-i18n="faq.title">Preguntas frecuentes</h2>
+        <p data-i18n="faq.lead">Algunas dudas habituales antes de iniciar un proyecto de gobierno y gestión de TI.</p>
+      </div>
+      <div class="faq-list reveal" style="max-width:760px;">
+        <div class="faq-item">
+          <button class="faq-q"><span data-i18n="faq.q1.q">¿Debemos implementar COBIT e ITIL al mismo tiempo?</span><i data-lucide="plus" width="18" height="18"></i></button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q1.a">No necesariamente. Muchas organizaciones inician con uno de los dos marcos según su necesidad más urgente, y avanzan hacia la integración cuando el gobierno y la gestión de TI están más maduros.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span data-i18n="faq.q2.q">¿Cuánto tiempo toma un proyecto de implementación?</span><i data-lucide="plus" width="18" height="18"></i></button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q2.a">Depende del alcance y del tamaño de la organización. Por eso el diagnóstico inicial es clave: nos permite definir un plan de trabajo realista antes de comprometer plazos.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span data-i18n="faq.q3.q">¿Es necesario tener un área de TI muy grande?</span><i data-lucide="plus" width="18" height="18"></i></button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q3.a">No. Adaptamos el alcance de las prácticas de gobierno y gestión al tamaño y madurez del equipo de TI, sin imponer procesos innecesarios.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span data-i18n="faq.q4.q">¿En qué se diferencia esto de una consultoría de auditoría?</span><i data-lucide="plus" width="18" height="18"></i></button>
+          <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.q4.a">No trabajamos únicamente sobre cumplimiento y control. Nuestro enfoque combina gobierno estratégico con la gestión operativa de los servicios, para que la mejora sea sostenible en el tiempo.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section" id="contacto">
+    <div class="wrap">
+      <div class="cta-final reveal">
+        <h2 data-i18n="cta.title">¿Está listo para convertir su TI en una ventaja estratégica?</h2>
+        <p data-i18n="cta.text">Hable con nuestros consultores y descubra qué prácticas de COBIT 2019 e ITIL 4 pueden generar mayor valor para su organización.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" data-open-modal data-i18n="cta.btn1">Solicitar diagnóstico de TI</a>
+          <a href="#" class="btn btn-ghost" data-open-modal data-i18n="cta.btn2">Hablar con un consultor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <span class="mark">N</span>
+          <span>NEXA IT<br><small>CONSULTING</small></span>
+        </a>
+        <p data-i18n="footer.tagline">Gobierno y gestión de TI para organizaciones que quieren crecer.</p>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.navTitle">Navegación</h5>
+        <ul>
+          <li><a href="#top" data-i18n="footer.home">Inicio</a></li>
+          <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
+          <li><a href="#comparativa">COBIT 2019</a></li>
+          <li><a href="#comparativa">ITIL 4</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.companyTitle">Empresa</h5>
+        <ul>
+          <li><a href="#por-que-nexa" data-i18n="nav.about">Nosotros</a></li>
+          <li><a href="#contacto" data-open-modal data-i18n="footer.contact">Contacto</a></li>
+          <li><a href="#faq" data-i18n="footer.faq">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footer.rights">© 2026 NEXA IT Consulting. Todos los derechos reservados.</span>
+      <span class="academic-tag" data-i18n="footer.academic">Proyecto académico — Ingeniería de Sistemas</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 data-i18n="modal.title">Solicitar diagnóstico</h3>
+      <button class="modal-close" id="modalCloseBtn" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    </div>
+    <p class="sub" data-i18n="modal.sub">Cuéntenos brevemente sobre su organización. Un consultor revisará su caso.</p>
+
+    <form class="modal-form" id="contactForm">
+      <div class="field">
+        <label for="cName" data-i18n="modal.name">Nombre</label>
+        <input type="text" id="cName" required placeholder="Su nombre completo" data-i18n-placeholder="modal.namePh">
+      </div>
+      <div class="field">
+        <label for="cEmail" data-i18n="modal.email">Correo corporativo</label>
+        <input type="email" id="cEmail" required placeholder="nombre@empresa.com">
+      </div>
+      <div class="field">
+        <label for="cInterest" data-i18n="modal.interest">Me interesa</label>
+        <select id="cInterest">
+          <option data-i18n="modal.opt1">Implementación de COBIT 2019</option>
+          <option data-i18n="modal.opt2">Implementación de ITIL 4</option>
+          <option data-i18n="modal.opt3">Integración COBIT + ITIL</option>
+          <option data-i18n="modal.opt4">Diagnóstico de TI</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="cMsg" data-i18n="modal.msg">Mensaje (opcional)</label>
+        <textarea id="cMsg" placeholder="Cuéntenos brevemente su situación actual" data-i18n-placeholder="modal.msgPh"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="modal.submit">Enviar solicitud</button>
+    </form>
+
+    <div class="modal-success" id="modalSuccess">
+      <div class="icn"><i data-lucide="check"></i></div>
+      <h4 data-i18n="modal.successTitle">Solicitud recibida</h4>
+      <p data-i18n="modal.successText">Este es un formulario de demostración con fines académicos. En un entorno real, un consultor de NEXA se pondría en contacto en las próximas horas.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+var NEXA_I18N = {
+  es: {
+    nav:{services:"Servicios",compare:"COBIT vs ITIL",method:"Metodología",about:"Nosotros",faq:"Preguntas",talk:"Hablar con un consultor",diagnose:"Solicitar diagnóstico"},
+    hero:{
+      eyebrow:"Gobierno y gestión de TI",
+      title:"Transformamos la tecnología en valor para su negocio",
+      lead:"Ayudamos a las organizaciones a fortalecer su gobierno de TI, optimizar sus servicios tecnológicos y reducir riesgos mediante la implementación estratégica de COBIT 2019 e ITIL 4.",
+      cta1:"Solicitar diagnóstico", cta2:"Conocer nuestros servicios",
+      meta1:"marcos integrados", meta2:"etapas de acompañamiento", meta3:"gobierno + gestión",
+      flow:{business:"NEGOCIO", cobit:"Gobierno · Riesgos · Objetivos · Control", itil:"Servicios · Procesos · Valor · Mejora", results:"RESULTADOS", resultsTags:"Eficiencia · Control · Valor · Satisfacción"}
+    },
+    problem:{
+      title:"¿Su tecnología está realmente alineada con su negocio?",
+      lead:"Muchas organizaciones invierten en tecnología sin obtener el retorno esperado. Estos son los síntomas más comunes que observamos antes de empezar a trabajar con un cliente.",
+      item1:"Procesos de TI poco definidos o documentados.",
+      item2:"Servicios tecnológicos que presentan fallas recurrentes.",
+      item3:"Falta de alineación entre TI y los objetivos del negocio.",
+      item4:"Riesgos tecnológicos difíciles de identificar y controlar.",
+      item5:"Falta de indicadores para medir el desempeño de TI.",
+      item6:"Decisiones tecnológicas tomadas sin visión estratégica.",
+      item7:"Equipos de TI enfocados únicamente en apagar incendios.",
+      item8:"Ausencia de una cultura de mejora continua.",
+      quote:"La tecnología no debería ser solamente un área de soporte. Debe convertirse en un verdadero habilitador del negocio.",
+      quoteSub:"Así es como pensamos cada proyecto en NEXA."
+    },
+    solution:{
+      title:"Dos marcos. Una estrategia de TI más sólida.",
+      lead:"Trabajamos con COBIT 2019 e ITIL 4 de forma independiente o combinada, según lo que su organización realmente necesite.",
+      itil:{title:"Gestión de servicios de TI", li1:"Diseñar mejores servicios", li2:"Optimizar procesos operativos", li3:"Mejorar la experiencia del usuario", li4:"Gestionar incidentes y cambios", li5:"Impulsar la mejora continua", li6:"Generar mayor valor a través de los servicios"},
+      cobit:{title:"Gobierno y control de TI", li1:"Alinear TI con los objetivos empresariales", li2:"Gestionar riesgos tecnológicos", li3:"Establecer controles efectivos", li4:"Definir objetivos de gobierno y gestión", li5:"Mejorar la toma de decisiones", li6:"Obtener mayor valor de las inversiones en TI"},
+      combo:{title:"Gobierno + Gestión", text:"COBIT 2019 proporciona una visión de gobierno y dirección, mientras ITIL 4 permite llevar esa estrategia a la gestión y mejora de los servicios de TI.", highlight:"COBIT define hacia dónde dirigir y gobernar. ITIL ayuda a gestionar y mejorar cómo se entregan los servicios."}
+    },
+    compare:{
+      lead:"Dos enfoques distintos que resuelven necesidades diferentes dentro de una misma organización.",
+      cobitSub:"Mayor enfoque en gobierno y gestión empresarial",
+      itilSub:"Mayor enfoque en servicios y operación",
+      mid:"GOBIERNO · GESTIÓN",
+      note:"No compiten. Se complementan.",
+      cobit:{li1:"Gobierno de TI", li2:"Alineación estratégica", li3:"Gestión de riesgos", li4:"Controles internos", li5:"Objetivos empresariales", li6:"Desempeño", li7:"Cumplimiento"},
+      itil:{li1:"Gestión de servicios", li2:"Entrega de valor", li3:"Experiencia del cliente", li4:"Procesos y prácticas", li5:"Mejora continua", li6:"Gestión de incidentes", li7:"Gestión de cambios"}
+    },
+    services:{
+      title:"¿Qué hacemos por su organización?",
+      lead:"Servicios diseñados para acompañar a su empresa desde el diagnóstico hasta la mejora continua.",
+      s1:{title:"Diagnóstico de TI", text:"Evaluamos el estado actual de los procesos, servicios, controles y capacidades de TI para identificar oportunidades de mejora."},
+      s2:{title:"Implementación de ITIL 4", text:"Diseñamos y optimizamos prácticas de gestión de servicios orientadas a mejorar la eficiencia y el valor entregado al cliente."},
+      s3:{title:"Implementación de COBIT 2019", text:"Fortalecemos el gobierno de TI, la gestión de riesgos, los controles y la alineación con los objetivos estratégicos."},
+      s4:{title:"Integración COBIT + ITIL", text:"Integramos gobierno y gestión para construir un modelo de TI coherente con las necesidades reales de la organización."},
+      s5:{title:"Capacitación y mejora continua", text:"Acompañamos a los equipos para que los procesos implementados sean sostenibles y evolucionen con las necesidades del negocio."}
+    },
+    benefits:{
+      title:"Resultados que generan valor",
+      lead:"Estos son los efectos que buscamos generar en cada organización con la que trabajamos.",
+      b1:{title:"Mayor alineación", text:"TI trabaja en función de los objetivos estratégicos del negocio."},
+      b2:{title:"Mayor eficiencia", text:"Procesos más organizados y servicios mejor gestionados."},
+      b3:{title:"Menor exposición al riesgo", text:"Mayor control sobre riesgos y procesos tecnológicos."},
+      b4:{title:"Mejores decisiones", text:"Información y objetivos que facilitan la toma de decisiones."},
+      b5:{title:"Mejora continua", text:"Los servicios y procesos evolucionan constantemente."},
+      b6:{title:"Mayor satisfacción", text:"Servicios de TI más orientados a las necesidades de usuarios y clientes."}
+    },
+    method:{
+      title:"De la situación actual a una TI más estratégica",
+      lead:"Un método claro y ordenado para llevar a su organización del diagnóstico a la mejora continua.",
+      t1:{title:"Diagnosticar", text:"Conocemos la situación actual de la organización."},
+      t2:{title:"Analizar", text:"Identificamos brechas, riesgos y oportunidades."},
+      t3:{title:"Diseñar", text:"Definimos el modelo y las prácticas adecuadas."},
+      t4:{title:"Implementar", text:"Llevamos las mejoras a los procesos y servicios."},
+      t5:{title:"Medir", text:"Evaluamos resultados mediante indicadores."},
+      t6:{title:"Mejorar", text:"Ajustamos continuamente para generar mayor valor."},
+      strip1:"DIAGNOSTICAR", strip2:"ANALIZAR", strip3:"DISEÑAR", strip4:"IMPLEMENTAR", strip5:"MEDIR", strip6:"MEJORAR"
+    },
+    why:{
+      title:"No implementamos marcos. Implementamos soluciones.",
+      text:"Cada organización tiene necesidades diferentes. Por eso analizamos primero sus objetivos, procesos y necesidades para determinar qué prácticas de COBIT 2019 e ITIL 4 realmente aportan valor.",
+      p1:{title:"Enfoque estratégico", text:"La tecnología se conecta con los objetivos del negocio."},
+      p2:{title:"Implementación práctica", text:"Convertimos buenas prácticas en procesos aplicables a la realidad de la organización."},
+      p3:{title:"Acompañamiento", text:"No dejamos a la organización después de implementar. Acompañamos la medición y la mejora continua."}
+    },
+    faq:{
+      title:"Preguntas frecuentes",
+      lead:"Algunas dudas habituales antes de iniciar un proyecto de gobierno y gestión de TI.",
+      q1:{q:"¿Debemos implementar COBIT e ITIL al mismo tiempo?", a:"No necesariamente. Muchas organizaciones inician con uno de los dos marcos según su necesidad más urgente, y avanzan hacia la integración cuando el gobierno y la gestión de TI están más maduros."},
+      q2:{q:"¿Cuánto tiempo toma un proyecto de implementación?", a:"Depende del alcance y del tamaño de la organización. Por eso el diagnóstico inicial es clave: nos permite definir un plan de trabajo realista antes de comprometer plazos."},
+      q3:{q:"¿Es necesario tener un área de TI muy grande?", a:"No. Adaptamos el alcance de las prácticas de gobierno y gestión al tamaño y madurez del equipo de TI, sin imponer procesos innecesarios."},
+      q4:{q:"¿En qué se diferencia esto de una consultoría de auditoría?", a:"No trabajamos únicamente sobre cumplimiento y control. Nuestro enfoque combina gobierno estratégico con la gestión operativa de los servicios, para que la mejora sea sostenible en el tiempo."}
+    },
+    cta:{
+      title:"¿Está listo para convertir su TI en una ventaja estratégica?",
+      text:"Hable con nuestros consultores y descubra qué prácticas de COBIT 2019 e ITIL 4 pueden generar mayor valor para su organización.",
+      btn1:"Solicitar diagnóstico de TI", btn2:"Hablar con un consultor"
+    },
+    footer:{
+      tagline:"Gobierno y gestión de TI para organizaciones que quieren crecer.",
+      navTitle:"Navegación", companyTitle:"Empresa",
+      home:"Inicio", contact:"Contacto", faq:"Preguntas frecuentes",
+      rights:"© 2026 NEXA IT Consulting. Todos los derechos reservados.",
+      academic:"Proyecto académico — Ingeniería de Sistemas"
+    },
+    modal:{
+      title:"Solicitar diagnóstico", sub:"Cuéntenos brevemente sobre su organización. Un consultor revisará su caso.",
+      name:"Nombre", namePh:"Su nombre completo", email:"Correo corporativo",
+      interest:"Me interesa",
+      opt1:"Implementación de COBIT 2019", opt2:"Implementación de ITIL 4", opt3:"Integración COBIT + ITIL", opt4:"Diagnóstico de TI",
+      msg:"Mensaje (opcional)", msgPh:"Cuéntenos brevemente su situación actual", submit:"Enviar solicitud",
+      successTitle:"Solicitud recibida", successText:"Este es un formulario de demostración con fines académicos. En un entorno real, un consultor de NEXA se pondría en contacto en las próximas horas."
+    }
+  },
+  en: {
+    nav:{services:"Services",compare:"COBIT vs ITIL",method:"Method",about:"About us",faq:"FAQ",talk:"Talk to a consultant",diagnose:"Request an assessment"},
+    hero:{
+      eyebrow:"IT governance and management",
+      title:"We turn technology into value for your business",
+      lead:"We help organizations strengthen IT governance, optimize technology services and reduce risk through the strategic implementation of COBIT 2019 and ITIL 4.",
+      cta1:"Request an assessment", cta2:"See our services",
+      meta1:"integrated frameworks", meta2:"stages of support", meta3:"governance + management",
+      flow:{business:"BUSINESS", cobit:"Governance · Risk · Objectives · Control", itil:"Services · Processes · Value · Improvement", results:"RESULTS", resultsTags:"Efficiency · Control · Value · Satisfaction"}
+    },
+    problem:{
+      title:"Is your technology truly aligned with your business?",
+      lead:"Many organizations invest in technology without getting the expected return. These are the most common symptoms we see before starting work with a client.",
+      item1:"Poorly defined or undocumented IT processes.",
+      item2:"Technology services with recurring failures.",
+      item3:"Lack of alignment between IT and business objectives.",
+      item4:"Technology risks that are hard to identify and control.",
+      item5:"Lack of indicators to measure IT performance.",
+      item6:"Technology decisions made without strategic vision.",
+      item7:"IT teams focused only on firefighting.",
+      item8:"Absence of a continuous-improvement culture.",
+      quote:"Technology shouldn't just be a support area. It should become a real enabler for the business.",
+      quoteSub:"This is how we approach every project at NEXA."
+    },
+    solution:{
+      title:"Two frameworks. One stronger IT strategy.",
+      lead:"We work with COBIT 2019 and ITIL 4 independently or combined, depending on what your organization actually needs.",
+      itil:{title:"IT service management", li1:"Design better services", li2:"Optimize operational processes", li3:"Improve the user experience", li4:"Manage incidents and changes", li5:"Drive continuous improvement", li6:"Generate more value through services"},
+      cobit:{title:"IT governance and control", li1:"Align IT with business objectives", li2:"Manage technology risk", li3:"Establish effective controls", li4:"Define governance and management objectives", li5:"Improve decision-making", li6:"Get more value from IT investments"},
+      combo:{title:"Governance + Management", text:"COBIT 2019 provides a governance and direction view, while ITIL 4 turns that strategy into the management and improvement of IT services.", highlight:"COBIT defines where to direct and govern. ITIL helps manage and improve how services are delivered."}
+    },
+    compare:{
+      lead:"Two different approaches that solve different needs within the same organization.",
+      cobitSub:"Greater focus on governance and enterprise management",
+      itilSub:"Greater focus on services and operations",
+      mid:"GOVERNANCE · MANAGEMENT",
+      note:"They don't compete. They complement each other.",
+      cobit:{li1:"IT governance", li2:"Strategic alignment", li3:"Risk management", li4:"Internal controls", li5:"Enterprise objectives", li6:"Performance", li7:"Compliance"},
+      itil:{li1:"Service management", li2:"Value delivery", li3:"Customer experience", li4:"Processes and practices", li5:"Continuous improvement", li6:"Incident management", li7:"Change management"}
+    },
+    services:{
+      title:"What we do for your organization",
+      lead:"Services designed to support your company from assessment through to continuous improvement.",
+      s1:{title:"IT assessment", text:"We evaluate the current state of your processes, services, controls and IT capabilities to identify opportunities for improvement."},
+      s2:{title:"ITIL 4 implementation", text:"We design and optimize service management practices aimed at improving efficiency and the value delivered to customers."},
+      s3:{title:"COBIT 2019 implementation", text:"We strengthen IT governance, risk management, controls and alignment with strategic objectives."},
+      s4:{title:"COBIT + ITIL integration", text:"We integrate governance and management to build an IT model consistent with the organization's real needs."},
+      s5:{title:"Training and continuous improvement", text:"We support teams so the practices implemented are sustainable and evolve with the business."}
+    },
+    benefits:{
+      title:"Results that generate value",
+      lead:"These are the outcomes we aim to generate in every organization we work with.",
+      b1:{title:"Greater alignment", text:"IT works in line with the organization's strategic objectives."},
+      b2:{title:"Greater efficiency", text:"More organized processes and better-managed services."},
+      b3:{title:"Lower risk exposure", text:"Greater control over technology risks and processes."},
+      b4:{title:"Better decisions", text:"Information and objectives that support better decision-making."},
+      b5:{title:"Continuous improvement", text:"Services and processes evolve constantly."},
+      b6:{title:"Greater satisfaction", text:"IT services more focused on the needs of users and customers."}
+    },
+    method:{
+      title:"From your current state to a more strategic IT",
+      lead:"A clear, orderly method to take your organization from assessment to continuous improvement.",
+      t1:{title:"Assess", text:"We learn about the organization's current situation."},
+      t2:{title:"Analyze", text:"We identify gaps, risks and opportunities."},
+      t3:{title:"Design", text:"We define the right model and practices."},
+      t4:{title:"Implement", text:"We bring the improvements into processes and services."},
+      t5:{title:"Measure", text:"We evaluate results through indicators."},
+      t6:{title:"Improve", text:"We continuously adjust to generate more value."},
+      strip1:"ASSESS", strip2:"ANALYZE", strip3:"DESIGN", strip4:"IMPLEMENT", strip5:"MEASURE", strip6:"IMPROVE"
+    },
+    why:{
+      title:"We don't implement frameworks. We implement solutions.",
+      text:"Every organization has different needs. That's why we first analyze your objectives, processes and needs to determine which COBIT 2019 and ITIL 4 practices actually add value.",
+      p1:{title:"Strategic focus", text:"Technology connects to the business objectives."},
+      p2:{title:"Practical implementation", text:"We turn good practices into processes that fit the organization's reality."},
+      p3:{title:"Ongoing support", text:"We don't leave once implementation is done. We support measurement and continuous improvement."}
+    },
+    faq:{
+      title:"Frequently asked questions",
+      lead:"Some common questions before starting an IT governance and management project.",
+      q1:{q:"Do we need to implement COBIT and ITIL at the same time?", a:"Not necessarily. Many organizations start with whichever framework addresses their most urgent need, and move toward integration as IT governance and management mature."},
+      q2:{q:"How long does an implementation project take?", a:"It depends on the scope and size of the organization. That's why the initial assessment matters: it lets us define a realistic work plan before committing to timelines."},
+      q3:{q:"Do we need a large IT department?", a:"No. We adapt the scope of governance and management practices to the size and maturity of the IT team, without imposing unnecessary processes."},
+      q4:{q:"How is this different from an audit-focused consultancy?", a:"We don't work only on compliance and control. Our approach combines strategic governance with the operational management of services, so improvement is sustainable over time."}
+    },
+    cta:{
+      title:"Ready to turn your IT into a strategic advantage?",
+      text:"Talk to our consultants and find out which COBIT 2019 and ITIL 4 practices can generate the most value for your organization.",
+      btn1:"Request an IT assessment", btn2:"Talk to a consultant"
+    },
+    footer:{
+      tagline:"IT governance and management for organizations that want to grow.",
+      navTitle:"Navigation", companyTitle:"Company",
+      home:"Home", contact:"Contact", faq:"FAQ",
+      rights:"© 2026 NEXA IT Consulting. All rights reserved.",
+      academic:"Academic project — Systems Engineering"
+    },
+    modal:{
+      title:"Request an assessment", sub:"Tell us briefly about your organization. A consultant will review your case.",
+      name:"Name", namePh:"Your full name", email:"Work email",
+      interest:"I'm interested in",
+      opt1:"COBIT 2019 implementation", opt2:"ITIL 4 implementation", opt3:"COBIT + ITIL integration", opt4:"IT assessment",
+      msg:"Message (optional)", msgPh:"Tell us briefly about your current situation", submit:"Send request",
+      successTitle:"Request received", successText:"This is a demo form for academic purposes. In a real environment, a NEXA consultant would reach out within a few hours."
+    }
+  }
+};
+
+function nexaGetPath(obj, path){
+  return path.split('.').reduce(function(acc,k){ return (acc && acc[k] !== undefined) ? acc[k] : null; }, obj);
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  if (window.lucide) lucide.createIcons();
+
+  /* Language toggle */
+  var currentLang = 'es';
+  var langToggles = [document.getElementById('langToggle'), document.getElementById('langToggleMobile')];
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var val = nexaGetPath(NEXA_I18N[lang], el.getAttribute('data-i18n'));
+      if (val !== null) el.textContent = val;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      var val = nexaGetPath(NEXA_I18N[lang], el.getAttribute('data-i18n-placeholder'));
+      if (val !== null) el.setAttribute('placeholder', val);
+    });
+    langToggles.forEach(function(t){
+      if (!t) return;
+      t.setAttribute('data-lang', lang);
+      t.querySelectorAll('[data-lang-btn]').forEach(function(btn){
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+    });
+  }
+
+  langToggles.forEach(function(toggle){
+    if (!toggle) return;
+    toggle.querySelectorAll('[data-lang-btn]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var lang = btn.getAttribute('data-lang-btn');
+        if (lang !== currentLang) applyLang(lang);
+      });
+    });
+  });
+
+  /* Header scroll state */
+  var header = document.getElementById('siteHeader');
+  function onScroll(){
+    if (window.scrollY > 12) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  /* Mobile menu */
+  var burger = document.getElementById('burgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  function toggleMenu(force){
+    var willOpen = typeof force === 'boolean' ? force : !menu.classList.contains('open');
+    menu.classList.toggle('open', willOpen);
+    burger.setAttribute('aria-expanded', String(willOpen));
+    burger.innerHTML = willOpen ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+    if (window.lucide) lucide.createIcons();
+    document.body.style.overflow = willOpen ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){ toggleMenu(); });
+  menu.querySelectorAll('[data-close-menu]').forEach(function(el){
+    el.addEventListener('click', function(){ toggleMenu(false); });
+  });
+
+  /* Scroll reveal */
+  var revealEls = document.querySelectorAll('.reveal:not(.in)');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(openItem){
+        if (openItem !== item){
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if (isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* Contact modal */
+  var overlay = document.getElementById('modalOverlay');
+  var closeBtn = document.getElementById('modalCloseBtn');
+  var form = document.getElementById('contactForm');
+  var success = document.getElementById('modalSuccess');
+
+  function openModal(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    form.classList.remove('hide');
+    success.classList.remove('show');
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-modal]').forEach(function(el){
+    el.addEventListener('click', function(ev){
+      ev.preventDefault();
+      toggleMenu(false);
+      openModal();
+    });
+  });
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(ev){
+    if (ev.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(ev){
+    if (ev.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    form.classList.add('hide');
+    success.classList.add('show');
+    if (window.lucide) lucide.createIcons();
+  });
+});
+</script>
+
+</body>
+</html>
